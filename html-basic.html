@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        lorem
+    </h1>
+    <h2>
+        Lorem,ipsum.
+    </h2>
+    <h3>
+        Lorem, ipsum dolor.
+    </h3>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam porro adipisci unde optio sit maxime nihil
+        mollitia consequuntur, enim dolorem explicabo accusantium? Optio nulla atque, ducimus illo aliquam a vitae?
+    </p>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus voluptate nihil dignissimos! Totam, quae.
+        Laudantium impedit vel officia harum debitis ullam reiciendis, itaque ducimus fugiat dolorem quis. Explicabo,
+        non eum.
+    </p>
+    <P>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, quasi?
+    </P>
+    <a href="https://www.jd.com/" target="_blank">在新窗口打开京东</a>
+    <a href="mailto:example@email.com">点我发邮件</a>
+    <a href="#bottom">跳到页面底部</a>
+    <a href="/example.txt" download>点我下载文件</a>
+    <br>
+    <img src="https://shorturl.at/2Y9qq" alt="picture" width="200" height="200">
+    <hr>
+    <hr>
+    <marquee direction="left">piao</marquee>
+    <p>这几种<em>强调</em><strong> 有什么 区别？</strong><u> 这个？</u><em> 这个？</em></p>
+    <p>&lt;!-- 这段注释需要出现在页面里面 --></p>
+    <code>
+      <pre>
+        function a() {
+        return 8
+      }
+      </pre>
+    </code>
+    <hr>
+    <ul>
+        <li>
+            小学
+            <ol>
+                <li>
+                    一年级
+                    <ol>
+                        <li>上学期</li>
+                        <li>下学期</li>
+                    </ol>
+                </li>
+                <li>二年级</li>
+                <li>三年级</li>
+            </ol>
+        </li>
+        <li>
+            中学
+        </li>
+        <li>
+            大学
+        </li>
+    </ul>
+    <dl>
+        <dt>班级</dt>
+        <dd>三年二班</dd>
+
+        <dt>老师</dt>
+        <dd>张老师</dd>
+        <dd>李老师</dd>
+        <dd>王老师</dd>
+
+        <dt>学生</dt>
+        <dd></dd>
+        <dd></dd>
+    </dl>
+    <hr>
+    <h2>Google搜索</h2>
+    <form action="https://www.google.com/search" target="_blank">
+        <input type="text" name="q">
+        <button>在新窗口打开搜索结果</button>
+    </form>
+    <hr>
+    <form>
+        <p>个人信息调查表</p>
+        <dl>
+            <dt>性别</dt>
+            <dd>
+                <input type="radio" name="gender" id="male">男
+                <input type="radio" name="gender" id="female">女
+            </dd>
+            <dt>年龄</dt>
+            <dd>
+                <select>
+                    <option value="unselect" hidden>请选择</option>
+                    <optgroup label="少年">
+                        <option value="1">1到6岁</option>
+                        <option value="6">6到12岁</option>
+                    </optgroup>
+                    <optgroup label="青年">
+                        <option value="13">13到15岁</option>
+                        <option value="16">16到18岁</option>
+                    </optgroup>
+                </select>
+            </dd>
+            <dt>生日</dt>
+            <dd>
+                <input type="date">
+            </dd>
+            <dt>生辰</dt>
+            <dd><input type="time"></dd>
+            <dt>照片</dt>
+            <dd>
+                <input type="file" hidden id="upfile">
+                <label for="upfile">点我上传照片，我比文件上传按钮好看</label>
+            </dd>
+            <dt>自我介绍</dt>
+            <dd>
+                <textarea rows="10" cols="30">&lt;/textarea></textarea>
+            </dd>
+        </dl>
+        <fieldset disabled>
+            <legend>这里全部禁用了</legend>
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+        </fieldset>
+        <button type="submit">提交</button>
+        <button type="reset">重置</button>
+    </form>
+    <hr>
+    <table border="1">
+        <colgroup>
+            <col>
+            <col style="background-color: red;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>编号</td>
+                <td>品名</td>
+                <td>进价</td>
+                <td>出价</td>
+            </tr>
+            <tr>
+                <td>aaa</td>
+                <td>a</td>
+                <td rowspan="2">a</td>
+                <td>a</td>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <br>
+    <hr>
+    <a href="https://www.mi.com/" target="window">小米</a>
+    <br>
+    <iframe src="https://nodejs.org/en" height="200" width="300" name="window">
+
+    </iframe>
+    <br>
+    aaa&nbsp;&nbsp;&nbsp;&nbsp;bbbbb
+    <p></p>
+    <pre>
+aaa      bbbbb
+    </pre>
+    <p>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< &lt;span>&lt;/span></p>
+    <span id="bottom"></span>
+</body>
+
+</html>
