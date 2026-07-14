@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* * {
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 0 1px black;
+        } */
+
+        body {
+            margin: 0;
+        }
+
+        .nav > ul {
+            margin: 0;
+            padding: 0;
+            width: 400px;
+            height: 50px;
+        }
+
+        .nav > ul > li {
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+            margin-right: 20px;
+            padding-left: 10px;
+            padding-top: 10px;
+            font-size: 18px;
+            position: relative;
+            background-color: lightblue;
+        }
+
+        .nav > ul > li > ul {
+            width: 120px;
+            height: 200px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 16px;
+            display: none;
+            background-color: lightpink;
+        }
+
+        .nav > ul > li:hover > ul {
+            display: block;
+        }
+
+        .nav > ul > li > ul > li {
+            width: 120px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+
+        .file > ul > li:last-child {
+            position: relative;
+        }
+        .file > ul ul {
+            position: absolute;
+            top: 50px;
+            left: 120px;
+            list-style: none;
+            padding: 0;
+            width: 70px;
+            display: none;
+            background-color: lightgreen;
+        }
+
+        .file > ul > li:last-child:hover > ul {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <ul>
+            <li class="file">
+                File
+                <ul>
+                    <li>New File</li>
+                    <li>New Window</li>
+                    <li>Open Folder</li>
+                    <li>Open Recent
+                        <ul>
+                            <li>abc.txt</li>
+                            <li>bcd.txt</li>
+                            <li>cde.txt</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="edit">
+                Edit
+                <ul>
+                    <li>Undo</li>
+                    <li>Redo</li>
+                    <li>Copy</li>
+                    <li>Paste</li>
+                </ul>
+            </li>
+            <li class="selection">
+                Selection
+                <ul>
+                    <li>Selecttion All</li>
+                    <li>Expand Selecttion</li>
+                    <li>Shrink Selecttion</li>
+                    <li>Copy Link</li>
+                </ul>
+                    
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
