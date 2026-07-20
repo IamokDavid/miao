@@ -1,0 +1,134 @@
+<script id="ch0103/01">
+    var A = Number(prompt("A : "))
+    var B = Number(prompt("B : "))
+    console.log(A + B)
+</script>
+<script id="ch0103/02">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    var c = Number(prompt("c : "))
+    console.log((a+b)*c)
+</script>
+<script id="ch0103/03">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    var c = Number(prompt("c : "))
+    console.log((a+b)/c)
+</script>
+<script id="ch0103/04">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    console.log((a - (a % b)) / b)
+    console.log(a % b)
+</script>
+<script id="ch0103/05">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    b != 0 ? b : NaN
+    console.log((a / b).toFixed(9))
+</script>
+<script id="ch0103/06">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    console.log(((b / a) * 100).toFixed(3) + "%")
+</script>
+<script id="ch0103/07">
+    var x = Number(prompt("x : "))
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    var c = Number(prompt("c : "))
+    var d = Number(prompt("d : "))
+    console.log(a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d)
+</script>
+<script id="ch0103/08">
+    var f = Number(prompt("f : "))
+    console.log((5 * (f - 32) / 9).toFixed(5))
+</script>
+<script id="ch0103/09">
+    var r = Number(prompt("r : "))
+    console.log((2 * r).toFixed(4))
+    console.log((2 * Math.PI * r).toFixed(4))
+    console.log((Math.PI * Math.pow(r, 2)).toFixed(4))
+</script>
+<script id="ch0103/10">
+    var r1 = Number(prompt("r1 : "))
+    var r2 = Number(prompt("r2 : "))
+    console.log((1 / (1 / r1 + 1 / r2)).toFixed(2))
+</script>
+<script id="ch0103/11">
+    var a = Number(prompt("a : "))
+    var b = Number(prompt("b : "))
+    console.log(a % b)
+</script>
+<script id="ch0103/12">
+    var r = Number(prompt("r : "))
+    r <= 100 ? r : NaN
+    console.log((4 / 3 * 3.14 * Math.pow(r, 3)).toFixed(2))
+</script>
+<script id="ch0103/13">
+    var r = Number(prompt("r : "))
+    p0 = r % 10
+    r = (r - p0) / 10
+    p1 = r % 10
+    r = (r - p1) / 10
+    console.log('' + p0 + p1 + r)
+</script>
+<script id="ch0103/14">
+    var h = Number(prompt("h : "))
+    var r = Number(prompt("r : "))
+    var v = 3.14159 * Math.pow(r, 2) * h
+    var result = 2e4 % v > 0 ? (2e4 - 2e4 % v) / v + 1 : 2e4 / v
+    console.log(result)
+</script>
+<script id="ch0103/15">
+    var n = Number(prompt("n : "))
+    var x = Number(prompt("x : "))
+    var y = Number(prompt("y : "))
+    var count = y % x > 0 ? (y - y % x) / x + 1 : y / x
+    console.log(n - count)
+</script>
+<script id="ch0103/16">
+    var x1 = Number(prompt("x1 : "))
+    var y1 = Number(prompt("y1 : "))
+    var x2 = Number(prompt("x2 : "))
+    var y2 = Number(prompt("y2 : "))
+    var a = Math.pow((x1 - x2), 2)
+    var b = Math.pow((y1- y2),2)
+    console.log(Math.sqrt(a + b).toFixed(3))
+</script>
+<script id="ch0103/17">
+    var x1 = Number(prompt("x1 : "))
+    var y1 = Number(prompt("y1 : "))
+    var x2 = Number(prompt("x2 : "))
+    var y2 = Number(prompt("y2 : "))
+    var x3 = Number(prompt("x3 : "))
+    var y3 = Number(prompt("y3 : "))
+    var a = Math.pow((x1 - x2), 2)
+    var b = Math.pow((y1- y2),2)
+    var s12 = Math.sqrt(a + b)
+    a = Math.pow((x1 - x3), 2)
+    b = Math.pow((y1- y3),2)
+    var s13 = Math.sqrt(a + b)
+    a = Math.pow((x2 - x3), 2)
+    b = Math.pow((y2- y3),2)
+    var s23 = Math.sqrt(a + b)
+    var l = (s12 + s13 + s23) / 2
+    s = Math.sqrt(l * (l - s12) * (l - s13) * (l - s23))
+    console.log(s.toFixed(2))
+</script>
+<script id="ch0103/18">
+    var a1 = Number(prompt("a1 : "))
+    var a2 = Number(prompt("a2 : "))
+    var n = Number(prompt("n : "))
+    var an = a1 + (n - 1) * (a2 - a1)
+    console.log(an)
+</script>
+<script id="ch0103/19">
+    var A = Number(prompt("A : "))
+    var B = Number(prompt("B : "))
+    console.log(A * B)
+</script>
+<script id="ch0103/20">
+    var n = Number(prompt("n : "))
+    console.log(Math.pow(2, n))
+</script>
