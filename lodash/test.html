@@ -1,22 +1,21 @@
-var iamokdavid = {
-    chunk(array, size=1) {
+<script>
+   function chunk(array, size=1) {
         let result = []
-        let each_length = array.length / size
-        for (let i = 0; i < array.length; i += each_length) {
-            result.push(array.slice(i, i + each_length))
+        for (let i = 0; i < array.length; i += size) {
+            result.push(array.slice(i, i + size))
         }
         return result
-    },
+    }
 
-    compact(array) {
+    function compact(array) {
         let result = []
         for (item of array) {
             item && result.push(item)
         }
         return result
-    },
-    
-    difference(array, ...values) {
+    }
+
+    function difference(array, ...values) {
         function sameValueZero(x, y) {
             if (typeof x === 'number' && typeof y === 'number') {
                 return x === y || (x !== x && y !== y)
@@ -35,5 +34,5 @@ var iamokdavid = {
             !include && result.push(check_item)
         }
         return result
-    },
-}
+    }
+</script>
