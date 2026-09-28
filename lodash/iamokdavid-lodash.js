@@ -366,6 +366,23 @@ var iamokdavid = function() {
     return {
         chunk,
         compact,
-        difference
+        difference,
+        differenceBy,
+        differenceWith,
+        drop,
+        dropRight,
+        dropRightWhile,
+        dropWhile,
+        fill,
+        findIndex,
+        findLastIndex,
+        flatten,
+        flattenDeep,
+        flattenDepth,
+        fromPairs,
+        head,
+        indexOf,
+        initial,
+        intersection
     }
 }()
