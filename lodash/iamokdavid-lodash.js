@@ -414,13 +414,13 @@ var iamokdavid = function() {
     function join(array, separator = ',') {
         let result = ''
         for (let item of array) {
-            result += item + separator
+            result += String(item) + separator
         }
         return result.slice(0, result.length - 1)
     }
 
     function last(array) {
-        return array.slice(array.length - 1)
+        return array.slice(array.length - 1)[0]
     }
 
     function lastIndexOf(array, value, fromIndex = array.length - 1) {
@@ -433,7 +433,10 @@ var iamokdavid = function() {
     }
 
     function nth(array, n=0) {
-        while (n < 0) {
+        if (n < 0 && -n > array.length) {
+            return
+        }
+        if (n < 0) {
             n += array.length
         }
         return array[n]
@@ -555,6 +558,406 @@ var iamokdavid = function() {
         return array
     }
 
+    
+    function reverse(array) {
+        for (let i = 0; i < array.length >> 1; i++) {
+            let t = array[i]
+            array[i] = array[array.length - 1 - i]
+            array[array.length - 1 - i] = t
+        }
+        return array
+    }
+
+    function sortedIndex(array, value) {
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 !== r) {
+            if (array[mid] < value) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        return r
+    }
+
+    function sortedIndexBy(array, value, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+
+        let f = iteratee()
+
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 !== r) {
+            if (f(array[mid]) < f(value)) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        return r
+    }
+
+    function sortedIndexOf(array, value) {
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 != r) {
+            if (array[mid] < value) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        if (array[r] === value) {
+            return r
+        }
+        return -1
+    }
+
+    function sortedLastIndex(array, value) {
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 != r) {
+            if (array[mid] <= value) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        return r
+    }
+
+    function sortedLastIndexBy(array, value, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+
+        let f = iteratee()
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 != r) {
+            if (f(array[mid]) <= f(value)) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        return r
+    }
+
+    function sortedLastIndexOf(array, value) {
+        let l = -1
+        let r = array.length
+        let mid = (l + r) >> 1
+        while (l + 1 != r) {
+            if (array[mid] <= value) {
+                l = mid
+            } else {
+                r = mid
+            }
+            mid = (l + r) >> 1
+        }
+        if (array[l] === value) {
+            return l
+        }
+        return -1
+    }
+
+    function sortedUniq(array) {
+        let uniq = []
+        for (let item of array) {
+            uniq.indexOf(item) === -1 && uniq.push(item)
+        }
+        return uniq
+    }
+
+    function sortedUniqBy(array, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+        let f = iteratee()
+
+        let uniq = []
+
+        function hasVal(arr, val, compar) {
+            for (let item of arr) {
+                if (compar(item) === compar(val)) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        for (let check_item of array) {
+            !hasVal(uniq, check_item, f) && uniq.push(check_item)
+        }
+        return uniq
+    }
+
+    function tail(array) {
+        array.slice(1)
+    }
+
+    function take(array, n = 1) {
+        return array.slice(0, n)
+    }
+
+    function takeRight(array, n = 1) {
+        if (n > array.length) {
+            n = array.length
+        }
+        return array.slice(array.length - n)
+    }
+
+    function takeRightWhile(array, fun) {
+        function predicate() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+
+        let f = predicate()
+        for (let i = array.length - 1; i > -1; i--) {
+            if (!f(array[i])) {
+                return array.slice(i + 1)
+            }
+        }
+    }
+
+
+    function takeWhile(array, fun) {
+        function predicate() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+
+        let f = predicate()
+        for (let i = 0; i < array.length; i++){
+            if (!f(array[i])) {
+                return array.slice(0, i)
+            }
+        }
+    }
+
+
+    function union(...arrays) {
+        let array = arrays.reduce((pv, cur) => pv.concat(cur))
+        let result = []
+        for (let item of array) {
+            result.indexOf(item) === -1 && result.push(item)
+        }
+        return result
+    }
+
+    function unionBy(...args) {
+        let array
+        let fun
+        if (!Array.isArray(args[args.length - 1])) {
+            array = args.slice(0, args.length - 1)
+            fun = args[args.length - 1]
+        } else {
+            array = args
+        }
+        array = array.reduce((pv, cur) => pv.concat(cur))
+
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+        let f = iteratee()
+
+        function checkVal(arr, val, check) {
+            for (let item of arr) {
+                if (check(item) === check(val)) {
+                    return true
+                }
+            }
+            return false
+        }
+        let result = []
+        for (let item of array) {
+            !checkVal(result, item, f) && result.push(item)
+        }
+        return result
+    }
+
+    function unionWith(...args) {
+        let array
+        let comparator
+        if (!Array.isArray(args[args.length - 1])) {
+            array = args.slice(0, args.length - 1)
+            comparator = args[args.length - 1]
+        } else {
+            array = args
+        }
+        array = array.reduce((pv, cur) => pv.concat(cur))
+        function checkVal(arr, val, f) {
+            for (let item of arr) {
+                if (f(item, val)) {
+                    return true
+                }
+            }
+            return false
+        }
+        let result = []
+        for (let item of array) {
+            !checkVal(result, item, comparator) && result.push(item)
+        }
+        return result
+    }
+
     function isEqual(a, b) {
         if (typeof a != 'object' && typeof b != 'object') {
             return a === b
@@ -599,6 +1002,22 @@ var iamokdavid = function() {
         pullAll,
         pullAllBy,
         pullAllWith,
-        
+        reverse,
+        sortedIndex,
+        sortedIndexBy,
+        sortedIndexOf,
+        sortedLastIndex,
+        sortedLastIndexBy,
+        sortedLastIndexOf,
+        sortedUniq,
+        sortedUniqBy,
+        tail,
+        take,
+        takeRight,
+        takeRightWhile,
+        takeWhile,
+        union,
+        unionBy,
+        unionWith
     }
 }()
