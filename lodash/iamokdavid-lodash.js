@@ -35,7 +35,18 @@ var iamokdavid = function() {
         return result
     }
 
-    function differenceBy(array, values, iteratee) {
+    function differenceBy(...args) {
+        let array = args[0]
+        let values
+        let iteratee
+        if (!Array.isArray(args[args.length - 1])) {
+            values = args.slice(1, args.length - 1)
+            iteratee = args[args.length - 1]
+        } else {
+            values = args.slice(1)
+        }
+        values = values.reduce((pv, cur) => pv.concat(cur))
+        
         function sameValueZero(x, y) {
             if (typeof x === 'number' && typeof y === 'number') {
                 return x === y || (x !== x && y !== y)
@@ -48,9 +59,12 @@ var iamokdavid = function() {
                 return function (value) {
                     return value[iteratee]
                 }
-            }
-            if (typeof iteratee === 'function') {
+            } else if (typeof iteratee === 'function') {
                 return iteratee
+            } else {
+                return function(value) {
+                    return value
+                }
             }
         }
 
@@ -300,25 +314,19 @@ var iamokdavid = function() {
         return array[0]
     }
 
-    function indexOf(array, value, fromIndex=0) {
+    function indexOf(array, value, fromIndex = 0) {
         function sameValueZero(a, b) {
             if (typeof a === 'number' && typeof b === 'number') {
                 return a === b || (a !== a && b !== b)
             }
             return a === b
         }
-        if (fromIndex >= 0) {
-            for (let i = fromIndex; i < array.length; i++) {
-                if (sameValueZero(value, array[i])) {
-                    return i
-                }
-            }
-        } else {
+        while (fromIndex < 0) {
             fromIndex += array.length
-            for (let i = fromIndex; i > -1; i--) {
-                if (sameValueZero(value, array[i])) {
-                    return i
-                }
+        }
+        for (let i = fromIndex; i < array.length; i++) {
+            if (sameValueZero(value, array[i])) {
+                return i
             }
         }
     }
@@ -348,6 +356,203 @@ var iamokdavid = function() {
             include && result.push(check_item)
         }
         return result
+    }
+
+    
+    function intersectionBy(...args) {
+        let arrays = args[0]
+        let values
+        let iteratee
+        if (!Array.isArray(args[args.length - 1])) {
+            iteratee = args[args.length - 1]
+            values = args.slice(1, args.length - 1)
+        } else {
+            values = args.slice(1)
+        }
+        values = values.reduce((pv, cur) => pv.concat(cur))
+
+        function fun() {
+            if (typeof iteratee === 'function') {
+                return iteratee
+            } else if (typeof iteratee === 'string') {
+                return function (value) {
+                    return value[iteratee]
+                }
+            }
+        }
+
+        let f = fun()
+        let result = []
+        for (let check_item of arrays) {
+            for (let item of values) {
+                f(check_item) === f(item) && result.push(check_item)
+            }
+        }
+        return result
+    }
+
+    function intersectionWith(...args) {
+        let array = args[0]
+        let values
+        let comparator
+        if (!Array.isArray(args[args.length - 1])) {
+            values = args.slice(1, args.length - 1)
+            comparator = args[args.length - 1]
+        } else {
+            values = args.slice(1)
+        }
+        values = values.reduce((pv, cur) => pv.concat(cur))
+        let result = []
+        for (let check_item of array) {
+            for (let item of values) {
+                comparator(check_item, item) && result.push(check_item)
+            }
+        }
+        return result
+    }
+
+    function join(array, separator = ',') {
+        let result = ''
+        for (let item of array) {
+            result += item + separator
+        }
+        return result.slice(0, result.length - 1)
+    }
+
+    function last(array) {
+        return array.slice(array.length - 1)
+    }
+
+    function lastIndexOf(array, value, fromIndex = array.length - 1) {
+        for (let i = fromIndex; i > -1; i--) {
+            if (array[i] === value) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    function nth(array, n=0) {
+        while (n < 0) {
+            n += array.length
+        }
+        return array[n]
+    }
+
+    function pull(array, ...values) {
+        let result = []
+        function sameValueZero(a, b) {
+            if (typeof a === 'number' && typeof b === 'number') {
+                return a === b || (a !== a && b !== b)
+            }
+            return a === b
+        }
+        for (let check_item of array) {
+            let flag = false
+            for (let item of values) {
+                if (sameValueZero(check_item, item)) {
+                    flag = true
+                    break
+                }
+            }
+            !flag && result.push(check_item)
+        }
+        array.length = 0
+        array.push(...result)
+        return array
+    }
+
+    function pullAll(array, values) {
+        let result = []
+        function sameValueZero(a, b) {
+            if (typeof a === 'number' && typeof b === 'number') {
+                return a === b || (a !== a && b !== b)
+            }
+            return a === b
+        }
+        for (let check_item of array) {
+            let flag = false
+            for (let item of values) {
+                if (sameValueZero(check_item, item)) {
+                    flag = true
+                    break
+                }
+            }
+            !flag && result.push(check_item)
+        }
+        array.length = 0
+        array.push(...result)
+        return array
+    }
+
+    function pullAllBy(array, values, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function(value) {
+                   return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function(value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function(value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function(value) {
+                    return value
+                }
+            }
+        }
+
+        function sameValueZero(a, b) {
+            if (typeof a === 'number' && typeof b === 'number') {
+                return a === b || (a !== a && b !== b)
+            }
+            return a === b
+        }
+
+        let f = iteratee()
+        let result = []
+        for (let check_item of array) {
+            let flag = false
+            for (let item of values) {
+                if (sameValueZero(f(check_item), f(item))) {
+                    flag = true
+                    break
+                }
+            }
+            !flag && result.push(check_item)
+        }
+        array.length = 0
+        array.push(...result)
+        return array
+    }
+
+    function pullAllWith(array, values, comparator) {
+        let result = []
+        for (let check_item of array) {
+            let flag = false
+            for (let item of values) {
+                if (comparator(check_item, item)) {
+                    flag = true
+                    break
+                }
+            }
+            !flag && result.push(check_item)
+        }
+        array.length = 0
+        array.push(...result)
+        return array
     }
 
     function isEqual(a, b) {
@@ -383,6 +588,17 @@ var iamokdavid = function() {
         head,
         indexOf,
         initial,
-        intersection
+        intersection,
+        intersectionBy,
+        intersectionWith,
+        join,
+        last,
+        lastIndexOf,
+        nth,
+        pull,
+        pullAll,
+        pullAllBy,
+        pullAllWith,
+        
     }
 }()
