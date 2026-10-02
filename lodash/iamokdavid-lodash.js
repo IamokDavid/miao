@@ -779,7 +779,7 @@ var iamokdavid = function() {
     }
 
     function tail(array) {
-        array.slice(1)
+       return array.slice(1)
     }
 
     function take(array, n = 1) {
@@ -958,6 +958,347 @@ var iamokdavid = function() {
         return result
     }
 
+    function uniq(array) {
+        function sameValueZero(a, b) {
+            if (typeof a === 'number' && typeof b === 'number') {
+                return a === b || (a !== a && b !== b)
+            }
+            return a === b
+        }
+
+        function checkVal(arr, val, f) {
+            for (let item of arr) {
+                if (f(val, item)) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        let result = []
+        for (let uncheck_item of array) {
+            if (!checkVal(result, uncheck_item, sameValueZero)) {
+                result.push(uncheck_item)
+            }
+        }
+        return result
+    }
+
+    function uniqBy(array, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+        let f = iteratee()
+
+        function checkVal(arr, val) {
+            for (let item of arr) {
+                if (f(val) === f(item)) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        let result = []
+        for (let uncheck_item of array) {
+            if (!checkVal(result, uncheck_item)) {
+                result.push(uncheck_item)
+            }
+        }
+        return result
+    }
+
+    function uniqWith(array, comparator) {
+        function checkVal(arr, val, f) {
+            for (let item of arr) {
+                if (f(val, item)) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        let result = []
+        for (let uncheck_item of array) {
+            if (!checkVal(result, uncheck_item, comparator)) {
+                result.push(uncheck_item)
+            }
+        }
+        return result
+    }
+
+    function unzip(array) {
+        let result = []
+        for (var i = 0; i < array[0].length; i++) {
+            let item = []
+            for (var j = 0; j < array.length; j++) {
+                item.push(array[j][i])
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function unzipWith(array, fun) {
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+        let f = iteratee()
+
+        let result = []
+        for (var i = 0; i < array[0].length; i++) {
+            let item = []
+            for (var j = 0; j < array.length; j++) {
+                item.push(array[j][i])
+            }
+            result.push(f(...item))
+        }
+        return result
+    }
+
+    function without(array, ...values) {
+        function sameValueZero(a, b) {
+            if (typeof a === 'number' && typeof b === 'number') {
+                return a === b || (a !== a && b !== b)
+            }
+            return a === b
+        }
+        function checkVal(arr, val) {
+            for (let item of arr) {
+                if (sameValueZero(val, item)) {
+                    return true
+                }
+            }
+            return false
+        }
+        let result = []
+        for (let check_item of array) {
+            !checkVal(values, check_item) && result.push(check_item)
+        }
+        return result
+    }
+
+    function xor(...arrays) {
+        let array = arrays.reduce((pv, cur) => pv.concat(cur))
+        function checkVal(arr, val) {
+            let count = 0
+            for (let item of arr) {
+                if (val === item) {
+                    count++
+                }
+            }
+            return count === 1
+        }
+        let result = []
+        for (let item of array) {
+            checkVal(array, item) && result.push(item)
+        }
+        return result
+    }
+
+    function xorBy(...args) {
+        let array
+        if (!Array.isArray(args[args.length - 1])) {
+            array = args.slice(0, args.length - 1)
+            fun = args[args.length - 1]
+        } else {
+            array = args
+        }
+
+        function iteratee() {
+            if (typeof fun === 'function') {
+                return fun
+            } else if (typeof fun === 'string') {
+                return function (value) {
+                    return value[fun]
+                }
+            } else if (Array.isArray(fun)) {
+                return function (value) {
+                    return value[fun[0]] === fun[1]
+                }
+            } else if (typeof fun === 'object') {
+                return function (value) {
+                    let keys = Object.keys(fun)
+                    for (let key of keys) {
+                        if (value[key] !== fun[key]) {
+                            return false
+                        }
+                    }
+                    return true
+                }
+            } else {
+                return function (value) {
+                    return value
+                }
+            }
+        }
+        let f = iteratee()
+
+        array = array.reduce((pv, cur) => pv.concat(cur))
+        function checkVal(arr, val) {
+            let count = 0
+            for (let item of arr) {
+                if (f(val) === f(item)) {
+                    count++
+                }
+            }
+            return count === 1
+        }
+        let result = []
+        for (let item of array) {
+            checkVal(array, item) && result.push(item)
+        }
+        return result
+    }
+
+    function xorWith(...args) {
+        let array
+        if (!Array.isArray(args[args.length - 1])) {
+            array = args.slice(0, args.length - 1)
+            comparator = args[args.length - 1]
+        } else {
+            array = args
+        }
+
+        array = array.reduce((pv, cur) => pv.concat(cur))
+        function checkVal(arr, val) {
+            let count = 0
+            for (let item of arr) {
+                if (comparator(val, item)) {
+                    count++
+                }
+            }
+            return count === 1
+        }
+        let result = []
+        for (let item of array) {
+            checkVal(array, item) && result.push(item)
+        }
+        return result
+    }
+
+    function zip(...arrays) {
+        let result = []
+        for (var i = 0; i < arrays[0].length; i++) {
+            let item = []
+            for (var j = 0; j < arrays.length; j++) {
+                item.push(arrays[j][i])
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function zipObject(props = [], values = []) {
+        let result = {}
+        for (let i = 0; i < props.length; i++) {
+            result[props[i]] = values[i]
+        }
+        return result
+    }
+
+    function zipObjectDeep(props = [], values = []) {
+        let result = {}
+        for (let i = 0; i < props.length; i++) {
+            let tokens = props[i].split('.')
+            let t = result
+            for (let token of tokens) {
+                if (!/\]$/.test(token)) {
+                    if (!t[token]) {
+                        t[token] = {}
+                    }
+                    t = t[token]
+                } else {
+                    let arr_name = ''
+                    let j = 0
+                    while (token[j] !== '[') {
+                        arr_name += token[j]
+                        j++
+                    }
+                    if (!t[arr_name]) {
+                        t[arr_name] = []
+                    }
+                    t = t[arr_name]
+                    t[token.match(/[\d]/)[0]] = {}
+                    t = t[token.match(/[\d]/)[0]]
+                }
+            }
+            eval('result.' + props[i] + '=' + values[i])
+        }
+        return result
+    }
+
+    function zipWith(...args) {
+        if (!Array.isArray(args[args.length - 1])) {
+            array = args.slice(0, args.length - 1)
+            iteratee = args[args.length - 1]
+        } else {
+            array = args
+            iteratee = (val) => val
+        }
+        let vals = []
+        for (let i = 0; i < array[0].length; i++) {
+            let item = []
+            for (var j = 0; j < array.length; j++) {
+                item.push(array[j][i])
+            }
+            vals.push(item)
+        }
+        let result = []
+        for (let item of vals) {
+            result.push(iteratee(...item))
+        }
+        return result
+    }
+
     function isEqual(a, b) {
         if (typeof a != 'object' && typeof b != 'object') {
             return a === b
@@ -1018,6 +1359,20 @@ var iamokdavid = function() {
         takeWhile,
         union,
         unionBy,
-        unionWith
+        unionWith,
+        uniq,
+        unionBy,
+        uniqWith,
+        unzip,
+        unzipWith,
+        without,
+        xor,
+        xorBy,
+        xorWith,
+        zip,
+        zipObject,
+        zipObjectDeep,
+        zipWith,
+        
     }
 }()
